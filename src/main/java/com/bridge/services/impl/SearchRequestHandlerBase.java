@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public abstract class SearchRequestHandlerBase<T> implements SearchRequestHandler<T> {
+public abstract class SearchRequestHandlerBase<T,R extends HBGRequestCreator<T>> implements SearchRequestHandler<T,R> {
 
     @Autowired
     private APIKeyResolver APIKeyResolver;
@@ -21,6 +21,8 @@ public abstract class SearchRequestHandlerBase<T> implements SearchRequestHandle
 
     //@Autowired (can not be autowired!!!!! generics is not resolved! see work around below)
     //private HBGRequestCreator<T> HBGRequestCreator;
+    @Autowired
+    private R HBGRequestCreator;
 
     @Autowired
     private HBGApiHandler HBGApiHandler;
@@ -40,7 +42,8 @@ public abstract class SearchRequestHandlerBase<T> implements SearchRequestHandle
 
         //creating HBG request
         //HBGRequest HBGRequest = HBGRequestCreator.create(requestBody);
-        HBGRequest HBGRequest = createHBGRequest(requestBody); //because of generics failing autowiring, use work around to handle in concrete class!
+        //HBGRequest HBGRequest = createHBGRequest(requestBody); //because of generics failing autowiring, use work around to handle in concrete class!
+        HBGRequest HBGRequest = HBGRequestCreator.create(requestBody);
 
         //receiving hbg response
         HBGResponse HBGResponse = HBGApiHandler.getHBGResponse(HBGRequest,apiKey);
@@ -55,6 +58,6 @@ public abstract class SearchRequestHandlerBase<T> implements SearchRequestHandle
     }
 
 
-    protected abstract HBGRequest createHBGRequest(T requestBody);
+    //protected abstract HBGRequest createHBGRequest(T requestBody);
 
 }

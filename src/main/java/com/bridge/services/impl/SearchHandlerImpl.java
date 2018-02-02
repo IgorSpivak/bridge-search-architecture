@@ -4,6 +4,7 @@ import com.bridge.entities.threquests.ThRequestByDestBody;
 import com.bridge.entities.threquests.ThRequestByIdBody;
 import com.bridge.entities.threquests.ThRequestHeader;
 import com.bridge.entities.thresponses.ThSearchResponse;
+import com.bridge.services.HBGRequestCreator;
 import com.bridge.services.SearchHandler;
 import com.bridge.services.SearchRequestHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,10 @@ import org.springframework.stereotype.Service;
 public class SearchHandlerImpl implements SearchHandler {
 
     @Autowired
-    private SearchRequestHandler<ThRequestByIdBody> searchByIdHandler;
+    private SearchRequestHandler<ThRequestByIdBody,HBGRequestCreator<ThRequestByIdBody>> searchByIdHandler;
 
     @Autowired
-    private SearchRequestHandler<ThRequestByDestBody> searchByDestHandler;
+    private SearchRequestHandler<ThRequestByDestBody,HBGRequestCreator<ThRequestByDestBody>> searchByDestHandler;
 
     @Override
     public ThSearchResponse create(ThRequestHeader header, ThRequestByIdBody request) {
