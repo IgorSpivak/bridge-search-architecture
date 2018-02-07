@@ -2,5 +2,5 @@ package com.bridge.services;
 
 import com.bridge.dto.threquests.ThRequestHeader;
 
-public interface APIKeyResolver extends THHeaderResolver<String> {
+public interface THHeaderResolver<R> extends Resolver<ThRequestHeader,R> {
 }

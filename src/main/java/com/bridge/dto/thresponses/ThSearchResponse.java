@@ -1,4 +1,4 @@
-package com.bridge.entities.thresponses;
+package com.bridge.dto.thresponses;
 
 public class ThSearchResponse {
 

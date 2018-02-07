@@ -1,13 +1,10 @@
-package com.bridge.entities.threquests;
+package com.bridge.entities;
 
-public class ThRequestHeader {
+public class SearchMappingContext {
 
     private String data;
 
-    public ThRequestHeader() {
-    }
-
-    public ThRequestHeader(String data) {
+    public SearchMappingContext(String data) {
         this.data = data;
     }
 

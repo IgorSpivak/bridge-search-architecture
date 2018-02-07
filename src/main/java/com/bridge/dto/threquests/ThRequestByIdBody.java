@@ -1,13 +1,13 @@
-package com.bridge.entities.thresponses;
+package com.bridge.dto.threquests;
 
-public class ThBodyInfo {
+public class ThRequestByIdBody {
 
     private String data;
 
-    public ThBodyInfo() {
+    public ThRequestByIdBody() {
     }
 
-    public ThBodyInfo(String data) {
+    public ThRequestByIdBody(String data) {
         this.data = data;
     }
 

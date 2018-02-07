@@ -1,10 +1,9 @@
 package com.bridge.services;
 
-import com.bridge.entities.threquests.ThRequestHeader;
-import com.bridge.entities.thresponses.ThSearchResponse;
+import com.bridge.dto.threquests.ThRequestHeader;
+import com.bridge.dto.thresponses.ThSearchResponse;
+import com.bridge.entities.SearchRequest;
 
-public interface SearchRequestHandler<T, R extends HBGRequestCreator<T>> {
-
-    ThSearchResponse create(ThRequestHeader requestHeader, T requestBody);
+public interface SearchRequestHandler<T> extends RequestHandler<SearchRequest<T>,ThSearchResponse> {
 
 }

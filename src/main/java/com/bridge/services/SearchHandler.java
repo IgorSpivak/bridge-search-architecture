@@ -1,12 +1,12 @@
 package com.bridge.services;
 
-import com.bridge.entities.threquests.ThRequestByDestBody;
-import com.bridge.entities.threquests.ThRequestByIdBody;
-import com.bridge.entities.threquests.ThRequestHeader;
-import com.bridge.entities.thresponses.ThSearchResponse;
+import com.bridge.dto.threquests.ThRequestByDestBody;
+import com.bridge.dto.threquests.ThRequestByIdBody;
+import com.bridge.dto.threquests.ThRequestHeader;
+import com.bridge.dto.thresponses.ThSearchResponse;
 
 public interface SearchHandler {
 
-    ThSearchResponse create(ThRequestHeader header, ThRequestByIdBody request);
-    ThSearchResponse create(ThRequestHeader header, ThRequestByDestBody request);
+    ThSearchResponse doWork(ThRequestHeader header, ThRequestByIdBody request);
+    ThSearchResponse doWork(ThRequestHeader header, ThRequestByDestBody request);
 }

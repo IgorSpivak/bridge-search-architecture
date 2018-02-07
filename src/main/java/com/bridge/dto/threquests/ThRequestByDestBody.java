@@ -1,13 +1,13 @@
-package com.bridge.entities.thresponses;
+package com.bridge.dto.threquests;
 
-public class ThArrayOfHotels {
+public class ThRequestByDestBody {
 
     private String data;
 
-    public ThArrayOfHotels() {
+    public ThRequestByDestBody() {
     }
 
-    public ThArrayOfHotels(String data) {
+    public ThRequestByDestBody(String data) {
         this.data = data;
     }
 

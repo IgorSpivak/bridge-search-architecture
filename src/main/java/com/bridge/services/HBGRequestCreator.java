@@ -1,9 +1,7 @@
 package com.bridge.services;
 
-import com.bridge.entities.hbgrequests.HBGRequest;
+import com.bridge.entities.SearchContext;
 
-public interface HBGRequestCreator<T> {
-
-    HBGRequest create(T thRequest);
-
+public interface HBGRequestCreator<T>{
+    SearchContext create(T request, String apikey);
 }

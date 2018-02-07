@@ -1,13 +1,13 @@
-package com.bridge.entities.threquests;
+package com.bridge.dto.threquests;
 
-public class ThRequestByDestBody {
+public class ThRequestHeader {
 
     private String data;
 
-    public ThRequestByDestBody() {
+    public ThRequestHeader() {
     }
 
-    public ThRequestByDestBody(String data) {
+    public ThRequestHeader(String data) {
         this.data = data;
     }
 

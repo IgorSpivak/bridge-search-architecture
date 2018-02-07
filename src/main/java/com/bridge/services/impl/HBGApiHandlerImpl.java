@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 public class HBGApiHandlerImpl implements HBGApiHandler {
 
     @Override
-    public HBGResponse getHBGResponse(HBGRequest request, String apiKey) {
-        HBGResponse response = new HBGResponse(request.getData() + " api key " + apiKey + " after hbg response");
+    public HBGResponse doWork(HBGRequest request) {
+        HBGResponse response = new HBGResponse(request.getData() + " after hbg response");
         return response;
     }
 }

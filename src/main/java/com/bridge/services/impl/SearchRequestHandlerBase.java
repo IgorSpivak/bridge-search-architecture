@@ -1,17 +1,17 @@
 package com.bridge.services.impl;
 
-import com.bridge.entities.hbgrequests.HBGRequest;
 import com.bridge.entities.hbgresponses.HBGResponse;
-import com.bridge.entities.threquests.ThRequestHeader;
-import com.bridge.entities.thresponses.ThArrayOfHotels;
-import com.bridge.entities.thresponses.ThBodyInfo;
-import com.bridge.entities.thresponses.ThSearchResponse;
+import com.bridge.dto.thresponses.ThArrayOfHotels;
+import com.bridge.dto.thresponses.ThBodyInfo;
+import com.bridge.dto.thresponses.ThSearchResponse;
+import com.bridge.entities.SearchContext;
+import com.bridge.entities.SearchRequest;
 import com.bridge.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public abstract class SearchRequestHandlerBase<T,R extends HBGRequestCreator<T>> implements SearchRequestHandler<T,R> {
+public abstract class SearchRequestHandlerBase<T> implements SearchRequestHandler<T> {
 
     @Autowired
     private APIKeyResolver APIKeyResolver;
@@ -19,37 +19,29 @@ public abstract class SearchRequestHandlerBase<T,R extends HBGRequestCreator<T>>
     @Autowired
     private BodyInfoBuilder bodyInfoBuilder;
 
-    //@Autowired (can not be autowired!!!!! generics is not resolved! see work around below)
-    //private HBGRequestCreator<T> HBGRequestCreator;
-    @Autowired
-    private R HBGRequestCreator;
-
     @Autowired
     private HBGApiHandler HBGApiHandler;
 
     @Autowired
     private THResultBuilder THResultBuilder;
 
-
     @Override
-    public ThSearchResponse create(ThRequestHeader requestHeader, T requestBody) {
+    public ThSearchResponse doWork(SearchRequest<T> request) {
 
         //resolving api key
-        String apiKey = APIKeyResolver.create(requestHeader);
+        String apiKey = APIKeyResolver.resolve(request.getHeader());
 
         //creating body info
-        ThBodyInfo bodyInfo = bodyInfoBuilder.create(requestHeader);
+        ThBodyInfo bodyInfo = bodyInfoBuilder.resolve(request.getHeader());
 
         //creating HBG request
-        //HBGRequest HBGRequest = HBGRequestCreator.create(requestBody);
-        //HBGRequest HBGRequest = createHBGRequest(requestBody); //because of generics failing autowiring, use work around to handle in concrete class!
-        HBGRequest HBGRequest = HBGRequestCreator.create(requestBody);
+        SearchContext searchContext = createHBGRequest(request.getBody(),apiKey); //because of generics failing autowiring, use work around to handle in concrete class!
 
         //receiving hbg response
-        HBGResponse HBGResponse = HBGApiHandler.getHBGResponse(HBGRequest,apiKey);
+        HBGResponse HBGResponse = HBGApiHandler.doWork(searchContext.getHbgRequest());
 
         //creating th response
-        ThArrayOfHotels ThArrayOfHotels = THResultBuilder.create(HBGResponse);
+        ThArrayOfHotels ThArrayOfHotels = THResultBuilder.create(HBGResponse,searchContext.getMappingContext());
 
         //creatring final result
         ThSearchResponse result = new ThSearchResponse(bodyInfo,ThArrayOfHotels);
@@ -58,6 +50,6 @@ public abstract class SearchRequestHandlerBase<T,R extends HBGRequestCreator<T>>
     }
 
 
-    //protected abstract HBGRequest createHBGRequest(T requestBody);
+    protected abstract SearchContext createHBGRequest(T requestBody, String apiKey);
 
 }

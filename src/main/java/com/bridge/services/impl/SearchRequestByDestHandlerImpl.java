@@ -1,19 +1,19 @@
 package com.bridge.services.impl;
 
-import com.bridge.entities.hbgrequests.HBGRequest;
-import com.bridge.entities.threquests.ThRequestByDestBody;
+import com.bridge.dto.threquests.ThRequestByDestBody;
+import com.bridge.entities.SearchContext;
 import com.bridge.services.HBGRequestCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SearchRequestByDestHandlerImpl extends SearchRequestHandlerBase<ThRequestByDestBody,HBGRequestCreator<ThRequestByDestBody> > {
+public class SearchRequestByDestHandlerImpl extends SearchRequestHandlerBase<ThRequestByDestBody> {
 
-   /* @Autowired
+    @Autowired
     private HBGRequestCreator<ThRequestByDestBody> HBGRequestCreator;
 
     @Override
-    protected HBGRequest createHBGRequest(ThRequestByDestBody requestBody) {
-        return HBGRequestCreator.create(requestBody);
-    }*/
+    protected SearchContext createHBGRequest(ThRequestByDestBody requestBody, String apiKey) {
+        return HBGRequestCreator.create(requestBody,apiKey);
+    }
 }
