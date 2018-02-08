@@ -1,10 +1,11 @@
 package com.bridge.entities;
 
 import com.bridge.dto.threquests.ThRequestHeader;
+import com.bridge.services.SearchInternalRequest;
 
-public class SearchRequest<T> {
-    private ThRequestHeader header;
-    private T body;
+public abstract class SearchRequest<T> implements SearchInternalRequest {
+    protected ThRequestHeader header;
+    protected T body;
 
     public SearchRequest(ThRequestHeader header, T body) {
         this.header = header;
